@@ -82,9 +82,21 @@ public class Build
    */
   public static boolean canReach(Airport start, Airport destination)
   {
-    return false;
+    Set<Airport> visited = new HashSet<>();
+    return canReach(start, destination, visited);
   }
+  public static boolean canReach(Airport start, Airport destination, Set<Airport> visited)
+  {
+    if (start == destination) return true;
+    if (start == null || destination == null || visited.contains(start)) return false;
+    visited.add(start);
+    for (Airport flight : start.getOutboundFlights())
+    {
+      if (canReach(flight, destination, visited)) return true;
+    }
+    return false;
 
+  }
 
   /**
    * Returns the set of all values in the graph that cannot be reached from the given starting value.
