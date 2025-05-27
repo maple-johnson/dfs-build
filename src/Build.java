@@ -107,7 +107,20 @@ public class Build
    * @param <T> the type of values stored in the graph
    * @return a set of values that cannot be reached from the starting value
    */
-  public static <T> Set<T> unreachable(Map<T, List<T>> graph, T starting) {
-    return new HashSet<>();
+  public static <T> Set<T> unreachable(Map<T, List<T>> graph, T starting)
+  {
+    if (graph == null) return new HashSet<>();
+    Set<T> unvisited = new HashSet<>();
+    for (T key : graph.keySet()) unvisited.add(key);
+    if (!graph.containsKey(starting)) return unvisited;
+    return unreachable(graph, starting, unvisited);
   }
+  public static <T> Set<T> unreachable(Map<T, List<T>> graph, T starting, Set<T> unvisited)
+  {
+    if (starting == null || !unvisited.contains(starting)) return unvisited;
+    unvisited.remove(starting);
+    for (T nextPoint : graph.get(starting)) unreachable(graph, nextPoint, unvisited);
+    return unvisited;
+  }
+
 }
