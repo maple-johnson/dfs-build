@@ -37,7 +37,17 @@ public class Build
    */
   public static String longestWord(Vertex<String> vertex) 
   {
-    return "";
+    Set<Vertex<String>> visited = new HashSet<>();
+    String longest = "";
+    return longestWord(vertex, visited, longest);
+  }
+  public static String longestWord(Vertex<String> vertex, Set<Vertex<String>> visited, String longest)
+  {
+    if (vertex == null || visited.contains(vertex)) return longest;
+    visited.add(vertex);
+    if (vertex.data.length() > longest.length()) longest = vertex.data;
+    for (Vertex<String> neighbor : vertex.neighbors) return longestWord(neighbor, visited, longest);
+    return longest;
   }
 
   /**
