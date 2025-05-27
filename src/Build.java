@@ -59,10 +59,18 @@ public class Build
    */
   public static <T> void printSelfLoopers(Vertex<T> vertex) 
   {
-    
+    Set<Vertex<T>> visited = new HashSet<>();
+    printSelfLoopers(vertex, visited);
 
   }
+  public static <T> void printSelfLoopers(Vertex<T> vertex, Set<Vertex<T>> visited)
+  {
+    if (vertex == null || visited.contains(vertex)) return;
+    visited.add(vertex);
+    if (vertex.neighbors.contains(vertex)) System.out.println(vertex.data);
+    for (Vertex<T> neighbor : vertex.neighbors) printSelfLoopers(neighbor, visited);
 
+  }
 
   /**
    * Determines whether it is possible to reach the destination airport through a series of flights
