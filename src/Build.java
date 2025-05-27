@@ -4,7 +4,8 @@ import java.util.Map;
 import java.util.Set;
 
 
-public class Build {
+public class Build 
+{
 
   /**
    * Prints words that are reachable from the given vertex and are strictly shorter than k characters.
@@ -13,7 +14,19 @@ public class Build {
    * @param vertex the starting vertex
    * @param k the maximum word length (exclusive)
    */
-  public static void printShortWords(Vertex<String> vertex, int k) {
+  public static void printShortWords(Vertex<String> vertex, int k) 
+  {
+    Set<Vertex<String>> visited = new HashSet<>();
+    printShortWords(vertex, k, visited);
+
+  }
+  public static void printShortWords(Vertex<String> vertex, int k, Set<Vertex<String>> visited)
+  {
+    if (vertex == null || visited.contains(vertex)) return;
+    visited.add(vertex);
+    if (vertex.data.length() < k) System.out.println(vertex.data);
+    for (Vertex<String> neighbor : vertex.neighbors) printShortWords(neighbor, k, visited);
+
   }
 
   /**
@@ -22,7 +35,8 @@ public class Build {
    * @param vertex the starting vertex
    * @return the longest reachable word, or an empty string if the vertex is null
    */
-  public static String longestWord(Vertex<String> vertex) {
+  public static String longestWord(Vertex<String> vertex) 
+  {
     return "";
   }
 
@@ -33,8 +47,12 @@ public class Build {
    * @param vertex the starting vertex
    * @param <T> the type of values stored in the vertices
    */
-  public static <T> void printSelfLoopers(Vertex<T> vertex) {
+  public static <T> void printSelfLoopers(Vertex<T> vertex) 
+  {
+    
+
   }
+
 
   /**
    * Determines whether it is possible to reach the destination airport through a series of flights
@@ -44,9 +62,11 @@ public class Build {
    * @param destination the destination airport
    * @return true if the destination is reachable from the start, false otherwise
    */
-  public static boolean canReach(Airport start, Airport destination) {
+  public static boolean canReach(Airport start, Airport destination)
+  {
     return false;
   }
+
 
   /**
    * Returns the set of all values in the graph that cannot be reached from the given starting value.
